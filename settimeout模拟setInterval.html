@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <meta http-equiv="expires" content="31 Dec 2008">
+    <script>
+        function myInterval(fn, wait) {
+            var timer = {
+                flag: true
+            };
+
+            function interval() {
+                if (timer.flag) {
+                    fn();
+                    setTimeout(interval, wait);
+                }
+            }
+            setTimeout(interval, wait);
+            return timer;
+        }
+        // myInterval(() => {
+        //     console.log("1213");
+        // }, 1000)
+
+        var getName = function () {
+            alert(4);
+        };
+
+        function getName() {
+            alert(5);
+        }
+        getName();
+    </script>
+</head>
+
+<body>
+    <a href=""></a>
+</body>
+
+</html>

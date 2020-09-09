@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        /**
+         * Promise是一个包含了兼容promise规范then方法的对象或函数。
+            thenable 是一个包含了then方法的对象或函数。
+            value 是任何Javascript值。 (包括 undefined, thenable, Promise等)。
+            exception 是由throw表达式抛出来的值。
+            reason 是一个用于描述Promise被拒绝原因的值。
+
+
+            一个Promise必须处在其中之一的状态：pending, fulfilled 或 rejected。
+            如果是pending状态,则promise：
+            可以转换到fulfilled或rejected状态。
+            如果是fulfilled状态,则promise：
+
+            不能转换成任何其它状态。
+            必须有一个值，且这个值不能被改变。
+
+            如果是rejected状态,则promise可以：
+
+            不能转换成任何其它状态。
+            必须有一个原因，且这个值不能被改变。
+         * **/
+        function MyPromise(callback) {
+            let that = this;
+            that.status = "pending";
+            that.value = "undefined";
+            that.reason = "undefined";
+
+            that.onFullfilledArray = [];
+            that.onRejectedArray = [];
+
+            function resolve(value) {
+                if (that.status === "pending") {
+                    that.value = value;
+                    that.status = "resolved";
+                    that.onFullfilledArray.forEach((func) => {
+
+                        func(that.value);
+                    })
+                }
+            }
+
+            function reject(reason) {
+                if (that.status === "pending") {
+                    that.reason = reason;
+                    that.status = "rejected";
+                    that.onRejectedArray.forEach((func) => {
+                        func(that.reason);
+                    })
+                }
+            }
+            try {
+                callback(resolve, reject);
+            } catch (error) {
+                reject(error);
+            }
+        }
+        MyPromise.prototype.then = function (onFulfilled, onRejected) {
+            let that = this;
+            if (that.status === "pending") {
+                that.onFullfilledArray.push((value) => {
+                    onFulfilled(value);
+                })
+                that.onRejectedArray.push((reason) => {
+                    onRejected(reason);
+                });
+            }
+            if (that.status === "resolved") {
+                onFulfilled(that.value);
+            }
+            if (that.status === "rejected") {
+                onRejected(that.reason);
+            }
+        }
+
+        // let a = new MyPromise((resolve, reject) => {
+        //     setTimeout(() => {
+        //         resolve(1);
+        //     }, 2000)
+        // })
+        // a.then((res) => {
+        //     console.log(res);
+        // })
+
+        function getUserName() {
+            let data = 'superman';
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve(data)
+                }, 4000);
+            })
+        }
+
+        function getUser(username) {
+            let data = {
+                id: 1,
+                username: 'superman',
+                gender: 'male'
+            }
+            return new Promise((resolve, reject) => {
+                if (username) {
+                    setTimeout(() => {
+                        resolve(data)
+                    }, 2000);
+                } else {
+                    reject('err');
+                }
+            })
+        }
+        getUserName().then(username => {
+                return getUser();
+            })
+            .then(user => {
+                console.log(user);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        /**
+         *function add(a, b, c) {
+            console.log(a + b + c)
+        }
+        const curriedAdd = curry(add)
+        curriedAdd(1)(2)(3) // output 6
+        curriedAdd(1)(2, 3) // output 6
+        curriedAdd(1, 2, 3) // output 6
+         * 
+         * 
+         * **/
+        function curry1(fn, args) {
+            let length = fn.length;
+
+            args = args || [];
+
+            return function () {
+                let _args = args.slice(0);
+                for (let i = 0; i < arguments.length; i++) {
+                    _args.push(arguments[i]);
+                }
+                if (_args.length < length) {
+                    return curry1.call(this, fn, _args);
+                } else {
+                    return fn.apply(this, _args);
+                }
+            }
+        }
+
+        // function add(a, b, c) {
+        //     console.log(a + b + c)
+        // }
+        // const curriedAdd = curry1(add);
+        // curriedAdd(1, 2, 3) // ["a", "b", "c"]
+        // curriedAdd(1, 2)(3) // ["a", "b", "c"]
+        // curriedAdd(1)(2)(3) // ["a", "b", "c"]
+        // curriedAdd(1)(2, 3) // ["a", "b", "c"]
+        // // arr.map((item, index) => {})
+
+        function add(...args) {
+            //求和
+            return args.reduce((a, b) => a + b)
+        }
+
+        function currying(fn) {
+            let args = []
+            return function temp(...newArgs) {
+                if (newArgs.length) {
+                    args = [
+                        ...args,
+                        ...newArgs
+                    ]
+                    return temp
+                } else {
+                    let val = fn.apply(this, args)
+                    args = [] //保证再次调用时清空
+                    return val
+                }
+            }
+        }
+
+
+        // 注意调用方式的变化
+        // console.log(addCurry(1)(2)(3)(4, 5)(1)()) //15
+        // console.log(addCurry(1)(2)(3, 4, 5)()) //15
+        // console.log(addCurry(1)(2, 3, 4, 5)()) //15
+        // console.log(addCurry(1)(2)(3)()) //15
+        // console.log(addCurry(1)(2,3)()) //15
+
+
+        function currying2(fn) {
+            let args = []
+
+            function temp(...newArgs) {
+                if (newArgs.length) {
+                    args = [
+                        ...args,
+                        ...newArgs
+                    ]
+                    return temp
+                }
+            }
+            temp.sumof = function () {
+                let val = fn.apply(this, args)
+                args = [] //保证再次调用时清空
+                return val
+            }
+            return temp
+        }
+        let addCurry2 = currying2(add)
+        // console.log(addCurry2(1)(2)(3)(4, 5)(1).sumof()) //15
+        // console.log(addCurry2(1)(2)(3, 4, 5).sumof()) //15
+        // console.log(addCurry2(1)(2, 3, 4, 5).sumof()) //15
+        // console.log(addCurry2(1)(2)(3).sumof()) //15
+        // console.log(addCurry2(1)(2, 3).sumof()) //15
+
+        function sum1() {
+            let prenum = [...arguments].reduce((a, b) => a + b);
+
+            let result = function () {
+                return sum1(...[...arguments, prenum]);
+            }
+            result.valueof = function () {
+                return prenum;
+            }
+            return result;
+        }
+        // function sum1(){
+        //     let prenum=[...arguments].reduce((a,b)=>a+b);
+        //     let result=function(){
+        //         return sum1(...[...arguments,prenum])
+        //     }
+        //     result.valueof = function () {
+        //         return prenum;
+        //     }
+        //     return result;
+        // }
+        // console.log(sum(1)(2)(3).valueof());
+
+
+        function sum2() {
+            let prenum = [...arguments].reduce((a, b) => a + b);
+
+            let result = function () {
+
+                if (arguments.length) {
+                    return sum2(...[...arguments, prenum]);
+                } else {
+                    return prenum
+                }
+
+            }
+            return result;
+        }
+
+
+
+        function add() {
+            let prenum = [...arguments].reduce((a, b) => a + b);
+            let fun = function () {
+                if (arguments.length) {
+                    return add(...[...arguments, prenum]);
+                }
+            }
+            fun.toString = () => prenum;
+
+            return fun;
+        }
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

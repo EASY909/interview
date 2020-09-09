@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        /**
+         编程题：实现一个chain, eat函数打印eat，work函数打印work，sleep函数休息
+        chain().eat().sleep(5).work().eat().work().sleep(10)
+         * **/
+        function chain() {
+            const list = [];
+            setTimeout(async () => {
+                for (let i = 0; i < list.length; i++) {
+                    if (list[i].type === "sleep") {
+                        await list[i].fn();
+                    } else {
+                        list[i].fn();
+                    }
+                }
+            }, 0)
+            const obj = {
+                eat() {
+                    list.push({
+                        type: "eat",
+                        fn() {
+                            console.log("eat");
+                        }
+                    })
+                    return obj;
+                },
+                work() {
+                    list.push({
+                        type: "work",
+                        fn() {
+                            console.log("work");
+                        }
+                    })
+                    return obj
+                },
+                sleep(time) {
+                    list.push({
+                        type: "sleep",
+                        fn() {
+                            return new Promise((resolve) => {
+                                setTimeout(() => resolve(), time * 1000)
+                            })
+                        }
+                    })
+                    return obj
+                }
+            }
+
+
+            return obj;
+        }
+        chain().eat().sleep(1).work().eat().work().sleep(2).work();
+    </script>
+    <style>
+        .p{
+            width: 500px;
+            height: 500px;
+            border: 1px solid rebeccapurple;
+        }
+        .d1{
+            width: 200px;
+            height: 200px;
+            background-color: aquamarine;
+            float: left;
+        }
+        .d2{
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            float: right;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="p">
+        <div class="d1"></div>
+        <div class="d2"></div>
+    </div>
+
+</body>
+
+</html>

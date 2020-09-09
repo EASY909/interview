@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function sum0(total, i, cb) {
+            if (i === 0) {
+                cb(total);
+                return;
+            }
+            sum0(total + i, i - 1, cb);
+        }
+        // sum0(0,100,value=>{
+        //     console.log(value);
+        // })
+        /**
+         * 改进放入异步队列
+         * **/
+        function sum1(total, i, cb) {
+            if (i === 0) {
+                cb(total);
+                return;
+            }
+            let part = 1000;
+            if (i % part === 0) {
+                setTimeout(sum1, 0, total + i, i - 1, cb);
+            } else {
+                sum1(total + i, i - 1, cb);
+            }
+        }
+        sum1(0, 100000, value => {
+            console.log(value);
+        })
+
+        function sum2(total, i, cb) {
+            if (i === 0) {
+                cb(total);
+                return;
+            }
+            let part = 1000;
+            if (i % part === 0) {
+                setTimeout(sum2, 0, total + i, i - 1, cb);
+            } else {
+                sum2(total + i, i - 1, cb);
+            }
+        }
+        sum2(0, 100000, value => {
+            console.log(value);
+        })
+
+
+        var factorial = function (n) {
+            if (n <= 1) return 1;
+            return factorial(n - 1) * n;
+        }
+       // 120复
+
+        var factorial1 = function (n, sum) {
+            if (n <= 1) return sum;
+            return factorial(n - 1, sum * n)
+        }
+        console.log(factorial1(5))
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

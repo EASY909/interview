@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        /**
+        对输入的字符串： 去除其中的字符'b'; 去除连续出现的'a'和'c'，包含ca和ac 例如：
+         'aacbd' -> 'ad' 'aabcd' -> 'ad' 'aaabbccc' -> ''
+        不允许使用类似string.replace函数以及正则。要求时间、空间复杂度尽量优化。
+        **/
+
+
+        function trim2(inputStr) {
+            while (inputStr.length >= 0) {
+                let bindex = inputStr.indexOf("b");
+
+                if (bindex !== -1) {
+                    inputStr = inputStr.slice(0, bindex) + inputStr.slice(bindex + 1);
+                }
+                let acindex = inputStr.indexOf("ac");
+                let caindex = inputStr.indexOf("ca");
+                if (acindex !== -1) {
+                    inputStr = inputStr.slice(0, acindex) + inputStr.slice(acindex + 2);
+                }
+                if (caindex !== -1) {
+                    inputStr = inputStr.slice(0, caindex) + inputStr.slice(caindex + 2);
+                }
+                if (bindex === -1 && acindex === -1 && caindex === -1) {
+                    break;
+                }
+            }
+            return inputStr
+        }
+       console.log(trim2("aabcd"));
+
+        async function fn() {
+            for (var i = 0; i < 5; i++) {
+                await new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve(console.log(new Date(), i));
+                    }, 1000)
+                })
+            }
+        }
+        // fn()
+        // for (var i = 0; i < 5; i++) {
+
+        //     setTimeout(() => {
+        //         console.log(new Date(), i);
+        //     }, 1000)
+
+        // }
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

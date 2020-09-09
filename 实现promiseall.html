@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function promiseAll(list) {
+            return new Promise((resolve, reject) => {
+                if (!Array.isArray(list)) {
+                    return reject("错误");
+                }
+                let countNum = 0,
+                    promiseNum = list.length,
+                    resovleValue = new Array(promiseNum);
+                for (let i = 0; i < promiseNum; i++) {
+                    Promise.resolve(list[i]).then((value) => {
+                        countNum++;
+                        resovleValue[i] = value;
+                        if (countNum === promiseNum) {
+                            return resolve(resovleValue);
+                        }
+                    }, (reason) => {
+                        return reject(reason);
+                    })
+                }
+            });
+        }
+
+
+        function promiseRace(list) {
+            return new Promise((resolve, reject) => {
+                if (!Array.isArray(list)) {
+                    return reject("错误");
+                }
+                let len = list.length;
+                if (len === 0) return;
+                for (let i = 0; i < len; i++) {
+                    Promise.resolve(list[i]).then(value => {
+                        return resolve(value);
+
+                    }, (reason) => {
+                        return reject(reason);
+
+                    })
+                }
+            })
+        }
+        // var p1 = Promise.reject(1),
+        //     p2 = Promise.resolve(2),
+        //     p3 = Promise.resolve(3);
+        // promiseRace([p1, p2, p3]).then(function (value) {
+        //     console.log(value)
+        // }).catch((error) => {
+        //     console.log(error);
+        // })
+
+        function myPromiseAll(promises) {
+            return new Promise((resolve, reject) => {
+                let promisenum = promises.length;
+                let result = [];
+                for (let i = 0; i < promisenum; i++) {
+                    Promise.resolve(promises[i]).then(res => {
+                        result.push(res)
+                    }, error => {
+                        result.push(error)
+                    });
+                }
+                return resolve(result);;
+            });
+        }
+        let a = new Promise((resolve) => {
+            resolve(1);
+        })
+        let b = new Promise((resolve, reject) => {
+            reject(1);
+        })
+        myPromiseAll([a, b]).then((res) => {
+            console.log(res)
+        })
+
+        // var p1 = Promise.reject(1),
+        //     p2 = Promise.resolve(2),
+        //     p3 = Promise.resolve(3);
+        // Promise.race([p1, p2, p3]).then(function (value) {
+        //     console.log(value)
+        // }).catch((error) => {
+        //     console.log(error);
+        // })
+    </script>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            position: absolute;
+            left: 0;
+            /* animation: move 2s linear infinite; */
+        }
+
+        /* @keyframes move {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(200px);
+            }
+        } */
+    </style>
+</head>
+
+<body>
+    <div id="div"></div>
+    <script>
+        let div = document.getElementById("div");
+        let curwidth = document.documentElement.clientWidth;
+        let left = 0;
+        // let timer = setInterval(() => {
+        //     if (left >= curwidth-200) {
+        //         clearInterval(timer);
+        //     }
+        //     left += 10;
+        //     div.style.left = left + "px";
+        // }, 16)
+        function render() {
+            if (left >= curwidth - 250) {
+                return
+            }
+            left += 10;
+            div.style.left = left + "px";
+            window.requestAnimationFrame(render)
+        }
+        window.requestAnimationFrame(render)
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let path = [];
+        let result = [];
+
+        // function res() {
+
+        //     add(path, result)
+        //     console.log(result);
+        // }
+
+        function add(path, result) {
+
+
+            result.push(path)
+
+        }
+        add(path, result)
+        console.log(path);
+        console.log(result);
+        var v1 = []
+        var v2 = {};
+        var v3 = {};
+
+        function foo(v1, v2, v3) {
+            v1 = [1];
+            v2 = [2];
+            v3 = {
+                a: 3
+            }
+        }
+
+        foo(v1, v2, v3);
+        console.log(v1); // 空白
+        console.log(v2); // [object Object]
+        console.log(v3.a); // undefined
+    </script>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .ProgressBarWrapper {
+            height: 30px;
+        }
+
+        .ProgressBarWrapper .bar-inner {
+            position: relative;
+            top: 13px;
+            height: 4px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .bar-inner .progress {
+            position: absolute;
+            height: 100%;
+            background: #d44439;
+            /* width: 200px; */
+        }
+
+        .ProgressBarWrapper .bar-inner .progress-btn-wrapper {
+            position: absolute;
+            left: -10px;
+            top: -13px;
+            width: 30px;
+            height: 30px;
+            /* transform: translate3d(200px, 0px, 0px); */
+        }
+
+        .progress-btn {
+            position: relative;
+            top: 7px;
+            left: 7px;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            width: 16px;
+            height: 16px;
+            border: 3px solid #e4e4e4;
+            border-radius: 50%;
+            background: #d44439;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ProgressBarWrapper">
+        <div class="bar-inner" id="progressBar">
+            <div class="progress" id="progress"></div>
+            <div class="progress-btn-wrapper" id="progressBtn">
+                <div class="progress-btn"></div>
+            </div>
+        </div>
+    </div>
+
+    <button id="button">点击</button>
+    <script>
+        let progressBtn = document.getElementById("progressBtn"),
+            progress = document.getElementById("progress"),
+            progressBar = document.getElementById("progressBar"),
+            progressBtnWidth = 20;
+        let startX = 0;
+        let left = 0;
+        let initiated = false;
+
+        function progressTouchStart(e) {
+
+            startX = e.touches[0].pageX; // 滑动开始时横向坐标
+            left = progress.clientWidth; // 当前 progress 长度
+            initiated = true;
+       
+        }
+
+        function progressTouchMove(e) {
+            if (!initiated) return;
+            const deltaX = e.touches[0].pageX - startX;
+            const barWidth = progressBar.clientWidth - progressBtnWidth;
+            console.log(barWidth);
+            // const offsetWidth = Math.max(0, this.touch.left + deltaX);
+            let offsetWidth = Math.min(
+                barWidth,
+                Math.max(0, left + deltaX)
+            )
+            progress.style.width = `${offsetWidth}px`
+            progressBtn.style.transform = `translate3d(${offsetWidth}px, 0, 0)`;
+
+        }
+
+        function progressTouchEnd(e) {
+            initiated = false
+        }
+
+        function progressClick(e) {
+            const rect = progressBar.getBoundingClientRect();
+            // const rect = progressBar.getClientRects();
+            const offsetWidth = e.pageX - rect.left;
+            progress.style.width = `${offsetWidth}px`
+            progressBtn.style.transform = `translate3d(${offsetWidth}px, 0, 0)`;
+
+        }
+        progressBtn.addEventListener("touchstart", progressTouchStart)
+        progressBtn.addEventListener("touchmove", progressTouchMove)
+        progressBtn.addEventListener("touchend", progressTouchEnd)
+        progressBar.addEventListener("click", progressClick)
+
+        let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+        function randomArr(arr) {
+            let m = arr.length;
+            let new_arr = [...arr]
+            for (let i = 0; i < m; i++) {
+                let j = Math.floor(Math.random() * i);
+                let t = new_arr[i];
+                new_arr[i] = new_arr[j];
+                new_arr[j] = t;
+            }
+            console.log(new_arr);
+        }
+        button.addEventListener("click", () => {
+            randomArr(arr)
+        })
+    </script>
+</body>
+
+</html>

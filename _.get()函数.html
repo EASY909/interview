@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        /**
+           //正则表达式中的$1的使用方法，在replice中$1不需要加RegExp，但是$1需加引号。
+            var str1='120'
+            var str2='120pt'
+            var str3='120px'
+            var reg=/^(\d+)(pt|px|em)?/
+            alert(reg.exec(str3))//整个正则表达式反回的结果。
+            alert(RegExp.$1)//返回正则中第一个子表达式的结果。
+            alert(RegExp.$2)//返回正则中第二个子表达式的结果。
+        **/
+        function get(source, ...args) {
+            // a[3].b -> a.3.b
+            let result = [];
+            for (let i = 0; i < args.length; i++) {
+                const paths = args[i].replace(/\[(\d{1})\]/g, '.$1').split(".");
+                // console.log(args[i].replace(/\[(\d{1})\]/g, '.$1'));
+                let target = source
+                for (const p of paths) {
+                    target = Object(target)[p];
+                }
+                result.push(target);
+            }
+            return result;
+        }
+
+        function get1(source, ...args) {
+            // a[3].b -> a.3.b
+            let result = [];
+            for (let i = 0; i < args.length; i++) {
+                const paths = args[i].replace(/\[(\d{1})\]/g, (item) => {
+                    return "." + item.substr(1, 1)
+                }).split(".");
+                let target = source
+                for (const p of paths) {
+                    target = Object(target)[p];
+                }
+                result.push(target);
+
+            }
+            return result;
+        }
+        const obj = {
+            selector: {
+                to: {
+                    toutiao: 'FE coder'
+                }
+            },
+            target: [1, 2, {
+                name: 'byted'
+            }]
+        };
+        // 运行代码
+        console.log(get(obj, 'selector.to.toutiao', 'target[0]', 'target[2].name'));
+        console.log(get1(obj, 'selector.to.toutiao', 'target[0]', 'target[2].name'));
+
+        //  输出结果：// ['FE coder', 1, 'byted']
+
+        var str1 = '120'
+        var str2 = '120pt'
+        var str3 = '120px'
+        var reg = /^(\d+)(pt|px|em)?/
+        console.log(reg.exec(str3)) //整个正则表达式反回的结果。
+        console.log(RegExp.$1) //返回正则中第一个子表达式的结果。
+        console.log(RegExp.$2) //返回正则中第二个子表达式的结果。
+
+        async function foo() {
+            return 123;
+        }
+        async function bar() {
+            const res = await foo();
+            console.log(res);
+        }
+        bar()
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

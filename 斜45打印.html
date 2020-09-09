@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let arr = [
+
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9]
+
+        ]
+        var findDiagonalOrder = function (nums) {
+            if (nums.length === 0) return [];
+            let rowLimit = nums.length,
+                ans = [],
+                arr = [];
+
+            // 同一对角线上的点放到同一个数组中
+            for (let x = 0; x < rowLimit; x++) {
+                let columns = nums[x];
+                for (let y = 0; y < columns.length; y++) {
+                    let index = x + y;
+                    if (arr[index] === undefined) arr[index] = [];
+                    arr[index].push([x, y]);
+                }
+            }
+            console.log(arr);
+            console.log(ans);
+            // 把每一组对角线的值排序后，加到 ans 中
+            for (let curr of arr) {
+                curr.sort((a, b) => a[1] - b[1]);
+                for (let site of curr) {
+                    let [x, y] = site;
+                    ans.push(nums[x][y]);
+                }
+            }
+
+            return ans;
+        };
+        console.log(findDiagonalOrder(arr));
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

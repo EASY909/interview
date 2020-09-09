@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .parent1 {
+            width: 800px;
+        }
+        .parent2 {
+            width: 800px;
+        }
+        .son1 {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            /* float: right; */
+            position: absolute;
+            left: 60px;
+            margin-bottom: 10px;
+        }
+        .son2 {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            /* position: absolute;
+             */
+             float: left;
+        }
+        .parent3{
+            margin: auto;
+            width: 200px;
+            height: 200px;
+            background-color: aquamarine;
+            float: left;
+            /* position: absolute; */
+            /* margin:auto; */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+        一、css定位
+
+　　　　CSS 有三种基本的定位机制：普通流、浮动和绝对定位。
+
+　　　　　　1.普通流：未专门指定的元素都在普通流中定位，position:static/relative;和float:none;也在普通流中定位。
+
+　　　　　　2.绝对定位：position:absolute/fixed;元素框脱离普通文档流。　　
+
+　　　　　　3.浮动：float:left/right;元素脱离普通文档流。
+
+        二、对元素同时使用position和float的情况
+
+　　　　经过实践发现，无论position和float谁写在前面或后面，都是position先起作用。
+
+　　　　　　1.当position为absolute/fixed时，元素已脱离文档流，再对元素应用float失效（即不起作用）。
+
+　　　　　　2.当position为static/relative时，元素依旧处于普通流中，再对元素应用float起作用。
+
+　　
+
+　　三、css定位机制之绝对定位机制与浮动定位机制的区别
+
+　　　　1.用position使元素脱离普通流后，该元素不占据空间，用top/bottom/left/right决定位置。
+
+　　　　2.用float使元素脱离普通流后，该元素占据空间，用margin,padding等决定和周围内容的距离等。
+     -->
+    <div class="parent1">
+        <div class="son1">
+
+        </div>
+        <p>换个卡很过分看时间好的该放射科货到付款手机号分块数据恢复系红领巾好多次V领跨境电商发V领绝对是方垃圾袋
+            大姐夫合格率肯德基发货了都结婚了换个卡很过分看时间好的该放射科货到付款手机号分块数据恢复系红领巾好多次V领跨境电商发V领绝对是方垃圾袋
+            大姐夫合格率肯德基发货了都结婚了换个卡很过分看时间好的该放射科货到付款手机号分块数据恢复系红领巾好多次V领跨境电商发V领绝对是方垃圾袋
+            大姐夫合格率肯德基发货了都结婚了换个卡很过分看时间好的该放射科货到付款手机号分块数据恢复系红领巾好多次V领跨境电商发V领绝对是方垃圾袋
+            大姐夫合格率肯德基发货了都结婚了换个卡很过分看时间好的该放射科货到付款手机号分块数据恢复系红领巾好多次V领跨境电商发V领绝对是方垃圾袋
+            大姐夫合格率肯德基发货了都结婚了换个卡很过分看时间好的该放射科货到付款手机号分块数据恢复系红领巾好多次V领跨境电商发V领绝对是方垃圾袋
+            大姐夫合格率肯德基发货了都结婚了换个卡很过分看时间好的该放射科货到付款手机号分块数据恢复系红领巾好多次V领跨境电商发V领绝对是方垃圾袋
+            大姐夫合格率肯德基发货了都结婚了换个卡很过分看时间好的该放射科货到付款手机号分块数据恢复系红领巾好多次V领跨境电商发V领绝对是方垃圾袋
+            大姐夫合格率肯德基发货了都结婚了换个卡很过分看时间好的该放射科货到付款手机号分块数据恢复系红领巾好多次V领跨境电商发V领绝对是方垃圾袋
+            大姐夫合格率肯德基发货了都结婚了
+        </p>
+    </div>
+    <div class="parent2">
+        <div class="son2">
+
+        </div>
+        <p>换个卡很过分看时间好的该放射科货到付款手机号分块数据恢复系红领巾好多次V领跨境电商发V领绝对是方垃圾袋
+            大姐夫合格率肯德基发货了都结婚了换个卡很过分看时间好的该放射科货到付款手机号分块数据恢复系红领巾好多次V领跨境电商发V领绝对是方垃圾袋
+            大姐夫合格率肯德基发货了都结婚了换个卡很过分看时间好的该放射科货到付款手机号分块数据恢复系红领巾好多次V领跨境电商发V领绝对是方垃圾袋
+            大姐夫合格率肯德基发货了都结婚了换个卡很过分看时间好的该放射科货到付款手机号分块数据恢复系红领巾好多次V领跨境电商发V领绝对是方垃圾袋
+            大姐夫合格率肯德基发货了都结婚了换个卡很过分看时间好的该放射科货到付款手机号分块数据恢复系红领巾好多次V领跨境电商发V领绝对是方垃圾袋
+            大姐夫合格率肯德基发货了都结婚了换个卡很过分看时间好的该放射科货到付款手机号分块数据恢复系红领巾好多次V领跨境电商发V领绝对是方垃圾袋
+            大姐夫合格率肯德基发货了都结婚了换个卡很过分看时间好的该放射科货到付款手机号分块数据恢复系红领巾好多次V领跨境电商发V领绝对是方垃圾袋
+            大姐夫合格率肯德基发货了都结婚了换个卡很过分看时间好的该放射科货到付款手机号分块数据恢复系红领巾好多次V领跨境电商发V领绝对是方垃圾袋
+            大姐夫合格率肯德基发货了都结婚了换个卡很过分看时间好的该放射科货到付款手机号分块数据恢复系红领巾好多次V领跨境电商发V领绝对是方垃圾袋
+            大姐夫合格率肯德基发货了都结婚了
+        </p>
+    </div>
+    <div class="parent3"></div>
+    <!-- 
+        1、如果设置为auto，取值如下
+
+    常规流中的块级元素的margin设置为auto时，则margin-left、margin-right的值相等。
+    这个可以用来居中一个块级元素
+    浮动的元素的margin值为auto时，它的margin-left、margin-right的取值为0
+    绝对定位的元素的margin值设置为auto时：如果这个元素的left、right、width都是auto，
+    那么它的margin-left、margin-right的值为0；如果这个元素的left、right、width值不是auto，
+    那么margin-right、margin-left的值相等；如果只有一个'margin-left'或者'margin-right'有一个是'auto'
+    ，则根据公式可计算出另外一个margin的值。；除以上这几种情况外，margin-left和margin-right取值为0
+     -->
+     <!--  
+        父子级：
+        position: absolute top相对外padding
+        margin-top 相对内边距
+
+        同级:
+           margin-top 相对外border
+
+      -->
+</body>
+
+</html>

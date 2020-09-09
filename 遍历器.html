@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let arr = ['a', 'b', 'c'];
+        let iter = arr[Symbol.iterator]();
+
+        console.log(iter.next()); // { value: 'a', done: false }
+        console.log(iter.next()); // { value: 'b', done: false }
+        console.log(iter.next()); // { value: 'c', done: false }
+        console.log(iter.next()); // { value: undefined, done: true }
+
+
+        let iterable = {
+            0: 'a',
+            1: 'b',
+            2: 'c',
+            length: 3,
+            [Symbol.iterator]: Array.prototype[Symbol.iterator]
+        };
+        for (let item of iterable) {
+            console.log(item); // 'a', 'b', 'c'
+        }
+        let mySymbol = Symbol();
+
+        // 注意，Symbol 值作为对象属性名时，不能用点运算符。
+        let a = {};
+        a[mySymbol] = 'Hello!';
+
+        a.mySymbol = 'Hello!';
+        a[mySymbol] // undefined
+        a['mySymbol'] // "Hello!"
+
+        console.log(a[mySymbol]);
+
+        let s1 = Symbol.for("foo");
+        Symbol.keyFor(s1) // "foo"
+
+        let s2 = Symbol("foo");
+        Symbol.keyFor(s2) // undefined
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

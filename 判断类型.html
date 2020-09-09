@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function getParamType(param) {
+            // 先判断是否能用typeof 直接判断
+            let types1 = ['number', 'string', 'boolean', 'undefined', 'symbol', 'function']
+            let type = typeof param;
+            type = types1.indexOf(type);
+            if (type !== -1) {
+                return types1[type]
+            }
+            // 剩余的用instanceof判断
+            switch (true) {
+                case param instanceof Date:
+                    return 'date'
+                case param instanceof Array:
+                    return 'array'
+                case param instanceof Object:
+                    return 'object'
+                case null === param && !param:
+                    return 'null'
+                default:
+                    return 'can not judge'
+            }
+        }
+        console.log(getParamType(1)); // number
+        console.log(getParamType('1')); // string
+        console.log(getParamType(true)); // boolean
+        console.log(getParamType(undefined)); // undefined
+        console.log(getParamType(Symbol.for(2))); // symbol
+        console.log(getParamType(() => 1)); // function
+        console.log(getParamType([])); // array
+        console.log(getParamType({})); // object
+        console.log(getParamType(new Date())); // date
+        console.log(getParamType(null)); // null
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // new Quene()
+        //     .task(1000, () => {
+        //         console.log(1)
+        //     })
+        //     .task(6000, () => {
+        //         console.log(2)
+        //     })
+        //     .task(1000, () => {
+        //         console.log(3)
+        //     })
+        //     .start()
+        function repeat(func, times, wait) {
+
+
+            return function (...args) {
+                let count = 0;
+                let timer = setInterval(() => {
+                    func(...args);
+
+                    count++;
+                    if (count > times) {
+                        clearInterval(timer);
+                    }
+                }, wait)
+            }
+        }
+        //一秒后输出1，两秒后输出4，三秒后输出5
+        let a = [1, 4, 5, 7, 9]
+
+        function fn(arr) {
+            let len = arr.length,
+                count = 0;
+            async function inner() {
+                for (let i = 0; i < len; i++) {
+                    await new Promise((resolve) => {
+                        setTimeout(() => {
+                            resolve(console.log(arr[i]));
+                        }, (i + 1) * 1000)
+                    })
+                }
+            }
+            inner();
+        }
+        fn(a);
+        const repeatFunc = repeat(alert, 4, 3000);
+        repeatFunc("hellworld");
+        class Quene {
+            constructor() {
+                this.quene = [];
+            }
+            task(time, cb) {
+                this.quene.push({
+                    time,
+                    cb
+                })
+                return this
+            }
+            start() {
+                const quene = this.quene;
+
+                async function fn() {
+
+                    for (let i = 0; i < quene.length; i++) {
+                        await new Promise((resolve, rejected) => {
+                            setTimeout(() => {
+                                resolve(quene[i].cb())
+                            }, quene[i].time);
+                        });
+                    }
+                }
+
+                fn()
+
+
+            }
+        }
+        // new Quene().task(1000, () => {
+        //     console.log(1);
+        // }).task(6000, () => {
+        //     console.log(2)
+        // }).task(1000, () => {
+        //     console.log(3)
+        // }).start()
+
+
+        /**
+         * JS实现一个带并发限制的异步调度器Scheduler，
+         * 保证同时运行的任务最多有两个。完善下面代码的Scheduler类，
+         * 使以下程序能够正常输出：
+         * 
+         * class Scheduler {
+            add(promiseCreator) { ... }
+            // ...
+            }
+            
+            const timeout = time => new Promise(resolve => {
+            setTimeout(resolve, time);
+            })
+            
+            const scheduler = new Scheduler();
+            
+            const addTask = (time,order) => {
+            scheduler.add(() => timeout(time).then(()=>console.log(order)))
+            }
+
+            addTask(1000, '1');
+            addTask(500, '2');
+            addTask(300, '3');
+            addTask(400, '4');
+
+            // output: 2 3 1 4
+         * **/
+        class Scheduler {
+            constructor() {
+                this.queue = [];
+                this.maxCount = 2;
+                this.runCounts = 0;
+            }
+            add(promiseCreator) {
+                this.queue.push(promiseCreator);
+            }
+            taskStart() {
+                for (let i = 0; i < this.maxCount; i++) {
+                    this.request();
+                }
+            }
+            request() {
+                if (!this.queue || !this.queue.length || this.runCounts >= this.maxCount) {
+                    return;
+                }
+                this.runCounts++;
+
+                this.queue.shift()().then(() => {
+                    this.runCounts--;
+                    this.request();
+                });
+            }
+        }
+
+        const timeout = time => new Promise(resolve => {
+            setTimeout(resolve, time);
+        })
+
+        const scheduler = new Scheduler();
+
+        const addTask = (time, order) => {
+            scheduler.add(() => timeout(time).then(() => console.log(order)))
+        }
+
+
+        addTask(1000, '1');
+        addTask(500, '2');
+        addTask(300, '3');
+        addTask(400, '4');
+
+        scheduler.taskStart()
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

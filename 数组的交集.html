@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let arr1 = [1, 2, 3, 4, 5],
+            arr2 = [1,2,3,7,7,8,5 ]
+        var intersect = function (nums1, nums2) {
+            nums1.sort((a, b) => a - b);
+            nums2.sort((a, b) => a - b); // 先排序，使得重复的元素相邻出现
+            const res = [];
+            let p1 = 0; // 两个指针
+            let p2 = 0;
+            while (p1 < nums1.length && p2 < nums2.length) { // 用&& 因为有一个越界了就不能找交集
+                if (nums1[p1] > nums2[p2]) { // p1指向的数大，移动p2，期待遇到一样大的
+                    p2++;
+                } else if (nums1[p1] < nums2[p2]) { // 类似
+                    p1++;
+                } else { // 遇到相同的，推入res数组，两个指针同时移动考察下一个
+                    res.push(nums1[p1]);
+                    p1++;
+                    p2++;
+                }
+            }
+            return res;
+        };
+        console.log(intersect(arr1,arr2));
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

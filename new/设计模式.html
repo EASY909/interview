@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function User(name, age, career, work) {
+            this.name = name
+            this.age = age
+            this.career = career
+            this.work = work
+        }
+
+        function Factory(name, age, career) {
+            let work;
+            switch (career) {
+                case 'coder':
+                    work = ['写代码', '写系分', '修Bug']
+                    break;
+                case 'product manager':
+                    work = ['订会议室', '写PRD', '催更']
+                    break
+                case 'boss':
+                    work = ['喝茶', '看报', '见客户']
+                    break
+                default:
+                    work = ["家里蹲"]
+                    break
+            }
+
+            return new User(name, age, career, work);
+        }
+
+        let f1 = new Factory("qc", 18, "coder");
+        console.log(f1.work);
+
+        const single = (function () {
+            class Single {
+
+            }
+            let single;
+
+            return {
+                getSingle() {
+                    if (!single) {
+                        single = new Single();
+                    }
+                    return Single;
+                }
+            }
+        })()
+
+        class EventEmitter {
+            constructor() {
+                this.handlers = {};
+            }
+            on(eventName, cb) {
+                if (!this.handlers[eventName]) {
+                    this.handlers[eventName] = [];
+                }
+                this.handlers[eventName].push(cb);
+            }
+            emit(eventName, ...args) {
+                if (this.handlers[eventName]) {
+                    this.handlers[eventName].forEach((cb) => {
+                        cb(...args);
+                    })
+                }
+            }
+
+            off(eventName, cb) {
+                const cbs = this.handlers[eventName];
+                const index = cbs.indexOf(cb);
+                if (index !== -1) cbs.splice(index, 1);
+            }
+
+            once(eventName, cb) {
+                const wrapper=(...args)=>{
+                    cb.apply(...args);
+                    this.off(eventName,wrapper);
+                }
+                this.on(eventName,wrapper)
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

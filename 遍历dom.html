@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <h1></h1>
+        <div>
+            <p></p>
+        </div>
+    </div>
+
+    <script>
+        // 输出DOM结构
+        var str = '';
+        var el = document.documentElement;
+        var empty;
+        var level = 0;
+
+        function output(el, level) {
+            if (el) {
+                if (level > 0) {
+                    empty = new Array(level).fill(' ');
+
+                    str += empty.join('');
+                }
+                str += el.tagName;
+                str += '\n'; // 换行
+            }
+            if (el.children) {
+
+                for (let i = 0; i < el.children.length; i++) {
+                    output(el.children[i], level + 1);
+                }
+            }
+        }
+
+        output(el, level);
+        console.log(str)
+
+        let allEls = document.getElementsByTagName("*")
+        let elObj = {}
+        for (let i = 0; i < allEls.length; i++) {
+            let ele = allEls[i].tagName.toLowerCase()
+            if (!elObj.hasOwnProperty(ele.toString())) {
+                elObj[ele] = 1
+            } else {
+                elObj[ele]++
+            }
+        }
+        console.log(elObj)
+    </script>
+</body>
+
+</html>

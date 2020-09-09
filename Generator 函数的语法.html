@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function* helloWorldGenerator() {
+            yield 'hello';
+            yield 'world';
+            return 'ending';
+        }
+
+        var hw = helloWorldGenerator();
+        console.log(hw.next());
+        // { value: 'hello', done: false }
+
+        hw.next()
+        // { value: 'world', done: false }
+
+        hw.next()
+        // { value: 'ending', done: true }
+
+        hw.next()
+        // { value: undefined, done: true }
+
+
+        function* gen() {
+            console.log("enter");
+            let a = yield 1;
+            let b = yield(function () {
+                return 2
+            })();
+            return 3;
+        }
+        var g = gen();
+        console.log(typeof g);
+
+        console.log(g.next())
+        console.log(g.next())
+        console.log(g.next())
+        console.log(g.next())
+
+        function* gen1() {
+            yield 1;
+            yield* gen2();
+            yield 4;
+        }
+
+        function* gen2() {
+            yield 2;
+            yield 3;
+        }
+        let ge = gen1()
+        console.log(ge.next())
+        console.log(ge.next())
+        console.log(ge.next())
+        console.log(ge.next())
+        async function func() {
+            return 100;
+        }
+        console.log(func());
+
+        async function test() {
+            console.log(100)
+            let x = await 200
+            console.log(x)
+            console.log(200)
+        }
+        console.log(0)
+        test()
+        console.log(300)
+        // async function test() {
+        //     let arr = [4, 2, 1]
+        //     arr.forEach(async item => {
+        //         const res = await handle(item)
+        //         console.log(res)
+        //     })
+        //     console.log('结束')
+        // }
+
+        // async function test() {
+        //     let arr = [4, 2, 1]
+        //     for (const item of arr) {
+        //         const res = await handle(item)
+        //         console.log(res)
+        //     }
+        //     console.log('结束')
+        // }
+
+        // function handle(x) {
+        //     return new Promise((resolve, reject) => {
+        //         setTimeout(() => {
+        //             resolve(x)
+        //         }, 1000 * x)
+        //     })
+        // }
+
+        // test()
+
+        let arr = [4, 2, 1];
+        // 迭代器
+        let iterator = arr[Symbol.iterator]();
+        console.log(iterator.next());
+        console.log(iterator.next());
+        console.log(iterator.next());
+        console.log(iterator.next());
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>响应式</p>
+    <script src="./prop.js"></script>
+    <script>
+        var obj = {
+            name: 'kkk',
+            age: 88,
+            is: true,
+            99: 100,
+            [Symbol()]: "symbol"
+        }
+        Object.prototype.addone = "one" 
+        // console.log(Object.keys(obj));
+        // console.log(Reflect.ownKeys(obj));
+        /**
+         * for in ：可枚举属性， 继承自原型的属性的可枚举属性
+         * （ 基本包装类型的原型属性是不可枚举的），
+         * symbol类型除外
+         * **/
+
+         /**
+          * Object.keys : 自有可枚举属性名，除symobl
+          * Reflect.ownKeys(obj) ：自身所有属性，包括symbol
+          * **/
+        for (const key in obj) {
+            // console.log(key);
+            if (obj.hasOwnProperty(key)) {
+                // console.log(key);
+
+            }
+        }
+    </script>
+</body>
+
+</html>

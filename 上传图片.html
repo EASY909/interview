@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <li>
+        <input type="file" name="" id="fileinput">
+
+        <img id="img" style="width: 100px;height: 100px;">
+    </li>
+
+    <script>
+        let fileinput = document.getElementById("fileinput");
+        fileinput.addEventListener("change", (e) => {
+            let file = e.target.files[0];
+
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+            // reader.readAsArrayBuffer(file);
+            reader.onload = function (e) {
+                img.src = e.target.result;
+            }
+        })
+    </script>
+</body>
+
+</html>

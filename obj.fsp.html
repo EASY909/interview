@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        /**
+        扩展对象
+        Object.preventExtensions()
+        Object.isExtensible()
+        密封对象
+        Object.seal()
+        Object.isSealed()
+        冻结对象
+        Object.freeze()
+        Object.isFrozen()
+        **/
+
+        // 1. Object.preventExtensions
+        // 阻止对象扩展，让一个对象变的不可扩展，也就是永远不能再添加新的属性
+        //可修改原有属性，可删除原有属性，不可添加新的属性
+        // 如果严格模式，则会报错
+        const object1 = {
+            age:18
+        };
+
+        Object.preventExtensions(object1);
+        object1.name = "qc";
+        console.log(object1.name); //undefined
+        console.log(object1.age); //undefined
+        object1.age=555
+        console.log(object1.age);
+        /**
+        3. Object.seal
+        让一个对象密封，并返回被密封后的对象。密封对象是指那些不能添加新的属性，
+        可修改原有属性，不可删除原有属性，不可添加新的属性
+        **/
+        var obj = {
+            name: 'John'
+        }
+
+        // 密封
+        Object.seal(obj)
+
+        // 不能添加新属性
+        obj.age = 30
+        console.log(obj.age) // undefined
+
+        // 不能删除已有属性
+        delete obj.name // false
+        console.log(obj.name) // 'John'，依然存在
+
+        // 可以修改已有属性的值
+        obj.name = 'Backus'
+        console.log(obj.name) // 'Backus'
+
+        /**
+        5. Object.freeze
+        个方法比 Object.seal 更绝，冻结对象是指那些不能添加新的属性，
+        不能修改已有属性的值，不能删除已有属性，以及不能修改已有属性的可枚举性、
+        可配置性、可写性的对象。也就是说，这个对象永远是不可变的。
+        不可修改原有属性，不可删除原有属性，不可添加新的属性
+        **/
+        var obj2 = {
+            name: 'qc',
+            ob:{
+                name:"son"
+            }
+        }
+        Object.freeze(obj2);
+        obj2.name="fff";
+        delete obj2.name
+        // console.log(obj2.name);
+        console.log(obj2.ob.name);
+        obj2.ob.name="fffffff";
+        console.log(obj2.ob.name);
+        
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

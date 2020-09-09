@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #results li.pass {
+            color: green;
+        }
+
+        #results li.fail {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="results"></div>
+    <button id="test"> Click Me! </button>
+    <script src="../utils.js"></script>
+    <script>
+        function Button() {
+            this.clicked = false;
+            this.click = () => {
+                console.log(this);
+                this.clicked = true;
+                assert(button.clicked, "The button has been clicked");
+            };
+        }
+        var button = new Button();
+        var elem = document.getElementById("test");
+        elem.addEventListener("click", button.click);
+
+
+
+        // var name = 'window'
+
+        // var person1 = {
+        //     name: 'person1',
+        //     show1: function () {
+        //         console.log(this.name)
+        //     },
+        //     show2: () => console.log(this.name),
+        //     show3: function () {
+        //         return function () {
+        //             console.log(this.name)
+        //         }
+        //     },
+        //     show4: function () {
+        //         return () => console.log(this.name)
+        //     }
+        // }
+        // var person2 = {
+        //     name: 'person2'
+        // }
+
+        // person1.show1()
+        // person1.show1.call(person2)
+
+        // person1.show2()
+        // person1.show2.call(person2)
+
+        // person1.show3()()
+        // person1.show3().call(person2)
+        // person1.show3.call(person2)()
+
+        // person1.show4()()
+        // person1.show4().call(person2)
+        // person1.show4.call(person2)()
+
+
+        var name = 'window'
+
+        function Person(name) {
+            this.name = name;
+            this.show1 = function () {
+                console.log(this.name)
+            }
+            this.show2 = () => console.log(this.name)
+            this.show3 = function () {
+                return function () {
+                    console.log(this.name)
+                }
+            }
+            this.show4 = function () {
+                return () => console.log(this.name)
+            }
+        }
+
+        var personA = new Person('personA')
+        var personB = new Person('personB')
+
+        personA.show1()
+        personA.show1.call(personB)
+
+        personA.show2()
+        personA.show2.call(personB)
+
+        personA.show3()()
+        personA.show3().call(personB)
+        personA.show3.call(personB)()
+
+        personA.show4()()
+        personA.show4().call(personB)
+        personA.show4.call(personB)()
+
+
+        // function juggle() {
+        //     var result = 0;
+        //     for (var n = 0; n < arguments.length; n++) {
+        //         result += arguments[n];
+        //     }
+        //     this.result = result;
+        // }
+        // var ninja1 = {};
+        // var ninja2 = {};
+        // juggle.apply(ninja1, [1, 2, 3, 4]);
+        // juggle.call(ninja2, 5, 6, 7, 8);
+        // assert(ninja1.result === 10, "juggled via apply");
+        // assert(ninja2.result === 26, "juggled via call");
+
+        // function forEach(list, callback) { // 
+        //     for (var n = 0; n < list.length; n++) {
+        //         callback.call(list[n], n); // 
+        //     }
+        // }
+        // var weapons = [{
+        //         type: 'shuriken'
+        //     },
+        //     {
+        //         type: 'katana'
+        //     },
+        //     {
+        //         type: 'nunchucks'
+        //     }
+        // ];
+        // forEach(weapons, function (index) {
+        //     assert(this === weapons[index],
+        //         "Got the expected value of " + weapons[index].type);
+        // });
+    </script>
+</body>
+
+</html>

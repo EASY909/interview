@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            position: relative;
+            width: 1000px;
+            height: 600px;
+            margin: 50px auto;
+            overflow: hidden;
+        }
+
+        .wrapper {
+            position: absolute;
+            left: 0px;
+            top: 0;
+            width: 4000px;
+            height: 100%;
+            transition: all 300ms linear 0ms;
+
+        }
+
+        .wrapper .slide {
+            float: left;
+            width: 1000px;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .wrapper .slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .focus {
+            position: absolute;
+            z-index: 10;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 12px;
+            padding: 4px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+
+            font-size: 0;
+        }
+
+        .focus li {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #fff;
+            margin: 0 4px;
+            display: inline-block;
+        }
+
+        .focus li.active {
+            background-color: crimson;
+        }
+
+        .arrow {
+            display: none;
+            width: 28px;
+            height: 45px;
+            position: absolute;
+            top: 50%;
+            margin-top: -22.5px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .arrow:hover {
+            background: rgba(0, 0, 0, 1);
+        }
+
+        .arrowLeft {
+            left: 0;
+        }
+
+        .arrowRight {
+            right: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="container" id="container">
+        <div class="wrapper">
+            <!-- <div class="slide"><img src="images/01.jpg" alt=""></div>
+            <div class="slide"><img src="images/02.jpg" alt=""></div>
+            <div class="slide"><img src="images/03.jpg" alt=""></div>
+            <div class="slide"><img src="images/04.jpg" alt=""></div> -->
+        </div>
+        <ul class="focus">
+            <!-- <li></li>
+            <li></li>
+            <li></li>
+            <li></li> -->
+        </ul>
+        <a href="javascript:;" class="arrow arrowLeft"></a>
+        <a href="javascript:;" class="arrow arrowRight"></a>
+    </section>
+    <script>
+        let bannerRender = (function () {
+            let container = document.getElementById("container"),
+                wrapper = container.querySelector(".wrapper"),
+                focus = container.querySelector(".focus"),
+                arrowLeft = container.querySelector('.arrowLeft'),
+                arrowRight = container.querySelector('.arrowRight'),
+                slideList = null,
+                focusList = null;
+            let stepIndex = 0,
+                autoTimer = null,
+                interval = 3000,
+                speed = 300;
+
+            let autoMove = function () {
+                stepIndex++;
+                if (stepIndex === 1 && speed === 0) {
+                    
+                    //css3 transition中（主栈执行时，短时间内遇到两次设置transition durtion以最后一次为主 ）
+                    // clearTimeout(delayTimer)
+                    let delayTimer = setTimeout(() => {
+                        //css3 transition中（主栈执行时，短时间内遇到两次设置transition durtion以最后一次为主 ）
+                        clearTimeout(delayTimer)
+                        stepIndex = 0;
+                        wrapper.style.left = -stepIndex * 1000 + "px";
+                        wrapper.style.transition = `all ${speed}ms linear 0ms`;
+                    }, 0)
+                    speed=300;
+                } else if (stepIndex === 4) {
+                    console.log(stepIndex+"speed=200");
+                    wrapper.style.left = -stepIndex * 1000 + "px";
+                    wrapper.style.transition = `all ${speed}ms linear 0ms`;
+                    stepIndex = 0;
+                    speed = 0;
+                    // wrapper.style.transitionProperty = 'all';
+                } else {
+                    console.log(stepIndex+"speed=300");
+                    speed=300;
+                    wrapper.style.left = -stepIndex * 1000 + "px";
+                    wrapper.style.transition = `all ${speed}ms linear 0ms`;
+                }
+
+
+            }
+            let bindHtml = function () {
+                return new Promise((resolve, reject) => {
+                    let strSlide = `
+                    <div class="slide"><img src="images/01.jpg" alt=""></div>
+                    <div class="slide"><img src="images/02.jpg" alt=""></div>
+                    <div class="slide"><img src="images/03.jpg" alt=""></div>
+                    <div class="slide"><img src="images/04.jpg" alt=""></div>
+                    <div class="slide"><img src="images/01.jpg" alt=""></div>
+                    `;
+                    let strFocus = `<li></li><li></li><li></li><li></li><li></li>`
+                    wrapper.innerHTML = strSlide;
+                    focus.innerHTML = strFocus;
+                    slideList = wrapper.querySelectorAll(".slide");
+                    focusList = focus.querySelectorAll("li");
+                    wrapper.style.width = slideList.length * 1000 + "px";
+                    resolve()
+                })
+            }
+            return {
+                init: function () {
+                    bindHtml().then(() => {
+                        autoTimer = setInterval(autoMove, interval);
+                    })
+                    // 
+                }
+            }
+        })()
+        bannerRender.init()
+    </script>
+</body>
+
+</html>

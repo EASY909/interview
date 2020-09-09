@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function myIndex() {
+            var index = 1;
+
+            function foo() {
+                return index++;
+            }
+
+            foo.clear = function () {
+                index = 1;
+            }
+            return foo;
+        }
+
+        var foo = myIndex();
+        a = foo();
+        b = foo();
+        c = foo();
+        // a === 1;b === 2;c === 3;
+        foo.clear();
+        d = foo(); //d === 1;
+        /**
+         * 实现一个函数，第一次调用输出0，第二次1，第三次0。。。
+         * **/
+        let temp;
+
+        function ma() {
+            temp = temp || 1;
+
+            return (function () {
+                temp++;
+                return temp % 2;
+            })()
+        }
+        // let dd = ma();
+        console.log(ma());
+        console.log(ma());
+        console.log(ma());
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        /**
+编程题：实现一个chain, eat函数打印eat，work函数打印work，sleep函数休息
+chain().eat().sleep(5).work().eat().work().sleep(10)
+         * **/
+
+        function chain() {
+            const list = [];
+
+            setTimeout(async () => {
+                for (let i = 0; i < list.length; i++) {
+                    if (list[i].type !== 'sleep') {
+                        list[i].fn()
+                    } else {
+                        await list[i].fn()
+                    }
+                }
+            }, 0)
+            const obj = {
+                eat() {
+                    list.push({
+                        type: 'eat',
+                        fn: () => {
+                            console.log('eat')
+                        }
+                    })
+                    return obj;
+                },
+                work() {
+                    list.push({
+                        type: 'work',
+                        fn: () => {
+                            console.log("work");
+                        }
+                    })
+                    return obj;
+                },
+                sleep(time) {
+                    list.push({
+                        type: 'sleep',
+                        fn: () => {
+                            return new Promise((resolve) => {
+                                setTimeout(() => {
+                                    resolve(null)
+                                }, 1000 * time)
+                            })
+                        }
+                    })
+                    return obj
+                }
+            }
+            return obj
+        }
+        // chain().eat().sleep(5).work()
+
+        // chain().eat()
+        // new Chain().eat().work().sleep(5).eat()
+
+
+
+        function quitRe(a) {
+            if (a.length === 1) return a;
+            let start = 0,
+                end = 1;
+            while (end < a.length) {
+                if (a[end] === a[start]) {
+                    end++
+                } else {
+                    if (end - start > 1) {
+                        a = a.replace(a.slice(start, end), '')
+                        a = quitRe(a)
+                    } else {
+                        start++
+                        end++
+                    }
+                }
+            }
+            return a;
+        }
+        console.log(quitRe("abbbaca"));
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

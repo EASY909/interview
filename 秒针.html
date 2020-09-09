@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .item {
+            background: black;
+            border-radius: 50%;
+            width: 6px;
+            height: 200px;
+            position: absolute;
+            left: 50%;
+            margin-left: -3px;
+            animation-name: rotateCircle;
+            animation-duration: 60s;
+            /* 一秒一转 */
+            animation-timing-function: steps(60);
+            /* 匀速 */
+            /* animation-timing-function: linear; */
+            /* 无限播放 */
+            animation-iteration-count: infinite;
+            /* 旋转基点设置为底部居中 */
+            transform-origin: center bottom;
+        }
+
+        @keyframes rotateCircle {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .cote {
+            width: 20px;
+            height: 20px;
+            background-color: brown;
+            border-radius: 50%;
+            animation: cote 1.4s infinite ease-in;
+        }
+
+        @keyframes cote {
+
+            0%,
+            100% {
+                transform: scale(0);
+            }
+
+            50% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="item"></div>
+    <div class="cote"></div>
+</body>
+
+</html>

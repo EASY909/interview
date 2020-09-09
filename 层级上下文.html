@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            /* display: flex; */
+        }
+
+        .parent {
+            width: 200px;
+            height: 100px;
+            background: #168bf5;
+            /* 虽然设置了z-index，但是没有设置position，z-index无效，.parent还是普通元素，没有产生层叠上下文 */
+            /* z-index: 100;
+            position: absolute; */
+        }
+
+        .child {
+            width: 100px;
+            height: 200px;
+            background: #32d19c;
+            position: absolute;
+            z-index: -1;
+        }
+
+        .child2 {
+            width: 100px;
+            height: 200px;
+            background: red;
+            left: 50px;
+            position: absolute;
+            z-index: 50;
+        }
+    </style>
+    <script>
+        function setCookie(key, value, iDay) {
+            var oDate = new Date();
+            oDate.setDate(oDate.getDate() + iDay);
+            document.cookie = key + '=' + value + ';expires=' + oDate;
+
+        }
+        setCookie("name","qc",1)
+    </script>
+</head>
+
+<body>
+
+    <div class="parent">
+        parent
+        <div class="child">child</div>
+        <!-- <div class="child2">child2</div> -->
+    </div>
+    <img src="" />
+</body>
+
+
+
+</html>

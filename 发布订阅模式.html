@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        /**
+        这种发布者直接触及到订阅者的操作，叫观察者模式。
+        但如果韩梅梅没有拉群，而是把需求文档上传到了公司统一的需求平台上，
+        需求平台感知到文件的变化、自动通知了每一位订阅了该文件的开发者，
+        这种发布者不直接触及到订阅者、而是由统一的第三方来完成实际的通信的操作，
+        叫做发布-订阅模式。
+
+            相信大家也已经看出来了，观察者模式和发布-订阅模式之间的区别，
+            在于是否存在第三方、发布者能否直接感知订阅者（如图所示）。
+        **/
+        /**
+        发布订阅模式
+        **/
+        class EventEmitter {
+            constructor() {
+                // handlers是一个map，用于存储事件与回调之间的对应关系
+                this.handlers = {}
+            }
+
+            // on方法用于安装事件监听器，它接受目标事件名和回调函数作为参数
+            on(eventName, cb) {
+                // 先检查一下目标事件名有没有对应的监听函数队列
+                if (!this.handlers[eventName]) {
+                    // 如果没有，那么首先初始化一个监听函数队列
+                    this.handlers[eventName] = []
+                }
+
+                // 把回调函数推入目标事件的监听函数队列里去
+                this.handlers[eventName].push(cb)
+            }
+
+            // emit方法用于触发目标事件，它接受事件名和监听函数入参作为参数
+            emit(eventName, ...args) {
+                // 检查目标事件是否有监听函数队列
+                if (this.handlers[eventName]) {
+                    // 如果有，则逐个调用队列里的回调函数
+                    this.handlers[eventName].forEach((callback) => {
+                        callback(...args)
+                    })
+                }
+            }
+
+            // 移除某个事件回调队列里的指定回调函数
+            off(eventName, cb) {
+                const callbacks = this.handlers[eventName]
+                const index = callbacks.indexOf(cb)
+                if (index !== -1) {
+                    callbacks.splice(index, 1)
+                }
+            }
+
+            // 为事件注册单次监听器
+            once(eventName, cb) {
+                // 对回调函数进行包装，使其执行完毕自动被移除
+                const wrapper = (...args) => {
+                    cb.apply(...args)
+                    this.off(eventName, wrapper)
+                }
+                this.on(eventName, wrapper)
+            }
+        }
+        /**
+        观察者模式
+        **/
+        (function (window) {
+            class Subscribe {
+                constructor() {
+                    this.pond = [];
+                }
+                add(fn) {
+                    let pond = this.pond,
+                        isExist = false;
+                    pond.forEach(item => {
+                            item === fn ? isExist = true : null;
+                        })
+
+                        !isExist ? pond.push(fn) : null;
+                }
+
+                remove(fn) {
+                    let pond = this.pond;
+                    pond.forEach((item, index) => {
+                        if (item === fn) {
+                            pond[index] = null;
+                            //  pond.splice(index,1) 
+                        }
+                    })
+                }
+
+                fire(...arg) {
+                    let pond = this.pond;
+
+                    for (let i = 0; i < pond.length; i++) {
+                        let item = pond[i];
+                        if (item === null) {
+                            pond.splice(i, 1);
+                            i--;
+                            continue;
+                        }
+                        item(...arg)
+                    }
+                }
+            }
+            window.Subscribe = Subscribe;
+        })(window)
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

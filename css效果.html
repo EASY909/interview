@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .triangle {
+            width: 0;
+            height: 0;
+            border: 50px solid;
+            border-color: transparent transparent #ccc transparent;
+        }
+
+        .parallel {
+            width: 200px;
+            height: 100px;
+            background: lightblue;
+            transform: skew(-20deg, 0deg);
+        }
+
+        #star {
+            position: relative;
+            margin: 200px auto;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-color: transparent transparent red transparent;
+            border-width: 70px 100px;
+            transform: rotate(35deg);
+        }
+
+        #star::before {
+            position: absolute;
+            content: '';
+            width: 0;
+            height: 0;
+            top: -128px;
+            left: -95px;
+            border-style: solid;
+            border-color: transparent transparent red transparent;
+            border-width: 80px 30px;
+            transform: rotate(-35deg);
+        }
+
+        #star::after {
+            position: absolute;
+            content: '';
+            width: 0;
+            height: 0;
+            top: -45px;
+            left: -140px;
+            border-style: solid;
+            border-color: transparent transparent red transparent;
+            border-width: 70px 100px;
+            transform: rotate(-70deg);
+        }
+
+        .spinner {
+            margin: 100px auto;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            font-size: 10px;
+        }
+
+        .spinner>div {
+            display: inline-block;
+            background-color: rgb(43, 128, 226);
+            height: 100%;
+            width: 5px;
+            margin-right: 1px;
+            animation: bytedance 1s infinite;
+        }
+
+        .spinner>div:nth-child(2) {
+            background-color: rgb(49, 84, 124);
+            animation-delay: -0.9s;
+        }
+
+        .spinner>div:nth-child(3) {
+            background-color: rgb(88, 128, 173);
+            animation-delay: -0.8s;
+        }
+
+        .spinner>div:nth-child(4) {
+            background-color: rgb(88, 128, 173);
+            animation-delay: -0.7s;
+        }
+
+        .spinner>div:nth-child(5) {
+            background-color: rgb(142, 187, 240);
+            animation-delay: -0.6s;
+        }
+
+        @keyframes bytedance {
+
+            0%,
+            40%,
+            100% {
+                transform: scaleY(0.4);
+            }
+
+            20% {
+                transform: scaleY(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="triangle"></div>
+    <div class="parallel"></div>
+    <div id="star"></div>
+
+    <div class="spinner">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</body>
+
+</html>

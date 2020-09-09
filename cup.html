@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>实现三栏水平布局之圣杯布局</title>
+  <style type="text/css">
+    /*基本样式*/
+    /* .left,
+    .right,
+    .main {
+      min-height: 300px;
+    }
+
+    .left {
+      width: 200px;
+      background-color: thistle;
+    }
+
+    .main {
+      background-color: #999;
+    }
+
+    .right {
+      width: 300px;
+      background-color: violet;
+    } */
+
+    /* 圣杯布局关键代码 */
+    /* .left,
+    .main,
+    .right {
+      float: left;
+      position: relative;
+    }
+
+    .main {
+      width: 100%;
+    }
+
+    .container {
+      padding-left: 200px;
+      padding-right: 300px;
+    }
+
+    .left {
+      margin-left: -100%;
+      left: -200px;
+    }
+
+   .right {
+      margin-left: -300px;
+      right: -300px;
+    }  */
+
+    /* .left,
+    .main,
+    .right {
+      float: left;
+      position: relative;
+      height: 300px;
+    }
+
+    .left {
+      width: 200px;
+      background-color: thistle;
+      margin-left: -100%;
+      left: -200px;
+    }
+
+    .main {
+      background-color: #999;
+      width: 100%;
+    }
+
+    .right {
+      width: 300px;
+      background-color: violet;
+      margin-left: -300px;
+      right: -300px;
+    }
+    .container {
+      padding-left: 200px;
+      padding-right: 300px;
+      height: 300px;
+    } */
+
+
+    /* .left1,
+    .right1,
+    .main1 {
+      min-height: 300px;
+    }
+
+    .container1 {
+      display: flex;
+      width: 100%;
+    }
+
+    .main1 {
+      background-color: #999;
+      flex: 1;
+    }
+
+    .left1 {
+      width: 200px;
+      background-color: thistle;
+    }
+
+    .right1 {
+      width: 300px;
+      background-color: violet;
+    } */
+
+    #div {
+      width: 200px;
+      height: 200px;
+      padding: 10px;
+      background: red;
+    }
+
+    .main,
+    .left,
+    .right {
+      float: left;
+      height: 500px;
+    }
+
+    .main {
+      width: 100%;
+      background-color: blue;
+    }
+
+    .left {
+      width: 200px;
+      background-color: aquamarine;
+      margin-left: -100%;
+      position: relative;
+      left: -200px;
+    }
+
+    .right {
+      width: 200px;
+      background-color: aquamarine;
+      margin-left: -200px;
+      position: relative;
+      right: -200px;
+    }
+
+    .container {
+      padding: 0 200px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="main">main</div>
+    <div class="left">left</div>
+    <div class="right">right</div>
+  </div>
+  <!-- <div id="div">
+    jkjhljhhljhkkuy
+  </div> -->
+
+  <!-- <div class="container1">
+
+    <div class="left1">left</div>
+    <div class="main1">main</div>
+    <div class="right1">right</div>
+  </div> -->
+
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+    </script>
+    <style>
+        #div2 {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <textarea name="" id="" cols="30" rows="10">
+        jkijl;ijhlijl.i;';';;laaald'dl
+    </textarea> -->
+    <div id="div2">
+
+    </div>
+    <script>
+        let div = document.getElementById("div2");
+        let startX = 0;
+        let startY = 0;
+
+        let winW = document.documentElement.clientWidth,
+            winH = document.documentElement.clientHeight,
+            boxW = div.offsetWidth,
+            boxH = div.offsetHeight;
+        div.style.top = (winH - boxH) / 2 + "px";
+        div.style.left = (winW - boxW) / 2 + "px";
+        let startL = parseFloat(div.style.left);
+        let startT = parseFloat(div.style.top);
+
+
+        div.addEventListener("mousedown", down);
+
+        function down(ev) {
+            startX = ev.clientX;
+            startY = ev.clientY;
+            startL = parseFloat(div.style.left);
+            startT = parseFloat(div.style.top);
+            div.addEventListener("mousemove", move);
+            div.addEventListener("mouseup", up);
+        }
+
+
+
+        function move(ev) {
+            let curL = ev.clientX - startX + startL;
+            let curT = ev.clientY - startY + startT;
+
+            div.style.left = curL + "px";
+            div.style.top = curT + "px";
+        }
+
+        function up(ev) {
+            console.log("up");
+            div.removeEventListener("mousemove", move);
+            div.removeEventListener("mouseup", up);
+            
+        }
+    </script>
+</body>
+
+</html>

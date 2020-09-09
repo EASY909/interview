@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function wechat() {
+            let price = 100;
+            let cur = 0;
+            for (let i = 0; i < 10; i++) {
+                // cur=Number(cur)
+                if (i === 9) {
+                    cur = price.toFixed(2);
+                } else {
+                    cur = Number((Math.random() * (price)).toFixed(2));
+                }
+                if(cur<0.01){
+                    cur=0.01
+                }
+                price = price - cur;
+
+                // console.log(price);
+                console.log(cur);
+            }
+        }
+        wechat()
+
+        
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function get(source, ...args) {
+            let result = [];
+            for (let i = 0; i < args.length; i++) {
+                const paths = args[i].replace(/\[(\d{1})\]/g, (...item) => {
+
+                    return "." + item[1]
+                }).split(".");
+                let target = source;
+                for (const p of paths) {
+                    target=Object(target)[p];
+                }
+                result.push(target);
+                // console.log(target);
+            }
+            return result;
+        }
+        const obj = {
+            selector: {
+                to: {
+                    toutiao: 'FE coder'
+                }
+            },
+            target: [1, 2, {
+                name: 'byted'
+            }]
+        };
+        console.log(get(obj, 'selector.to.toutiao', 'target[0]', 'target[2].name'));
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function cloneDeep(source, wmap = new WeakMap()) {
+
+            if (typeof source === "object" && source !== null) {
+                if (source instanceof Date) return new Date(source);
+                if (source instanceof RegExp) return new RegExp(source);
+
+                if (wmap.has(source)) return wmap.get(source);
+                let cloneTarget = Array.isArray(source) ? [] : {};
+                wmap.set(source, cloneTarget);
+
+
+                for (const key in source) {
+                    if (source.hasOwnProperty(key)) {
+                        if (typeof source[key] === "object" && source[key] !== null) {
+                            cloneTarget[key] = cloneDeep(source[key], wmap);
+                        } else {
+                            cloneTarget[key] = source[key]
+                        }
+
+                    }
+                }
+                return cloneTarget
+            } else {
+                return source;
+            }
+        }
+
+        var a = {
+            name: "muyiy",
+            book: {
+                title: "You Don't Know JS",
+                price: "45",
+                function () {}
+            },
+            a1: undefined,
+            a2: null,
+            a3: 123,
+            a4: function () {
+
+            },
+            a5: [1, 2, 3, 4],
+            a6: false,
+            a7: new Date(),
+            a8: new RegExp(/\d+/g)
+        }
+        let b = cloneDeep(a);
+        console.log(a);
+        console.log(b);
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

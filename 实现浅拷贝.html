@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        /**
+         * 1手动实现
+         **/
+        const shallowClone = (target) => {
+            if (typeof target === 'object' && target !== null) {
+                const cloneTarget = Array.isArray(target) ? [] : {};
+                for (let prop in target) {
+                    if (target.hasOwnProperty(prop)) {
+                        cloneTarget[prop] = target[prop];
+                    }
+                }
+                return cloneTarget;
+            } else {
+                return target;
+            }
+        }
+        /**
+         * 2. Object.assign
+         * **/
+        let obj = {
+            name: 'sy',
+            age: 18
+        };
+        const obj2 = Object.assign({}, obj, {
+            name: 'sss'
+        });
+        console.log(obj2); //{ name: 'sss', age: 18 }
+
+        /**3concat浅拷贝数组
+         * **/
+        let arr = [1, 2, 3];
+        let newArr = arr.concat();
+        newArr[1] = 100;
+        console.log(arr); //[ 1, 2, 3 ]
+
+        /**4 slice浅拷贝数组
+         * **/
+        let arr = [1, 2, 3];
+        let newArr = arr.slice();
+        newArr[0] = 100;
+
+        console.log(arr); //[1, 2, 3]
+
+        /**5. ...展开运算符
+         * **/
+        let arr = [1, 2, 3];
+        let newArr = [...arr]; //跟arr.slice()是一样的效果
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

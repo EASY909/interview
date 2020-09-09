@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function sum0(total, i, cb) {
+            if (i === 0) {
+                cb(total);
+                return;
+            }
+            sum0(total + i, i - 1, cb);
+        }
+        sum0(0, 1000, value => {
+            console.log(value);
+        })
+        function sum1(total, i, cb){
+            if (i === 0) {
+                cb(total);
+                return;
+            }
+            let part=1000;
+            if(i%1000===0){
+                setTimeout(sum1,0,total+i, i-1, cb);
+            }else{
+                sum1(total + i, i - 1, cb);
+            }
+        }
+        sum1(0, 10000, value => {
+            console.log(value);
+        })
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

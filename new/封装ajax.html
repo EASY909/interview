@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function getJson({
+            url,
+            params,
+            method
+        }) {
+            let promise = new Promise((resolve, reject) => {
+                let xhr = new XMLHttpRequest();
+                let data = "";
+                for (const key in params) {
+                    data += `${key}=${params[key]}&`;
+                }
+                if (method.toLowerCase() === "get") {
+                    xhr.open(method, url + "?" + data.substring(0, data.length - 1));
+                    xhr.send(null);
+                } else if (method.toLowerCase() === "post") {
+                    xhr.open(method, url);
+                    xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+                    xhr.send(data.substring(0, data.length - 1))
+                }
+                xhr.responseType = "json";
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState !== 4) return;
+                    if (/^(2|3)\d{2}$/.test(xhr.status)) {
+                        resolve(xhr.response);
+                    } else {
+                        reject(new Error(xhr.statusText));
+                    }
+                }
+                xhr.onerror = function () {
+                    reject(new Error(xhr.statusText));
+                }
+            })
+            return promise;
+        }
+
+        getJson({
+            url: "ajax.json",
+            method: "get",
+            params: {
+                name: "qc",
+                age: 18
+            }
+        }).then((res) => {
+            console.log(res);
+        }).catch(error => {
+            console.log(error);
+        })
+    </script>
+</body>
+
+</html>

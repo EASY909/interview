@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* .fa {
+            width: 500px;
+            height: 500px;
+            background-color: aquamarine;
+            position: relative;
+        }
+
+        .so {
+            width: 200px;
+            height: 200px;
+            background-color: palevioletred;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            margin: auto;
+        } */
+        .fa {
+            width: 600px;
+            height: 600px;
+            background-color: aquamarine;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .so {
+            width: 200px;
+            height: 200px;
+            background-color: palevioletred;
+        }
+
+        /* .fa {
+            width: 500px;
+            height: 500px;
+            background-color: aquamarine;
+            position: relative;
+        }
+
+        .so {
+            width: 200px;
+            height: 200px;
+            background-color: palevioletred;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin: -100px -100px;
+        } */
+
+        /* .fa {
+            width: 500px;
+            height: 500px;
+            background-color: aquamarine;
+            position: relative;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .so {
+            width: 200px;
+            height: 200px;
+            background-color: palevioletred;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            opacity: 1;
+            visibility:visible
+        } */
+
+        /* .box{
+            width: 200px;
+            height: 200px;
+            background-color: blueviolet;
+            border:100px solid red;
+            padding: 100px;
+            margin:100px;
+            box-sizing: border-box;
+        } */
+        .parent {
+           display: table;
+           width: 300px;
+           height: 300px;
+           text-align: center;
+       }
+       .son  {
+           display: table-cell;
+           height: 200px;
+           background-color: yellow;
+           vertical-align: middle;
+       }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+    <div class="fa">
+        <div class="so"></div>
+    </div>
+
+
+    <div class="parent">
+        <p class="son">会议认为，党的十八大以来，我国经济发展取得历史性成就、
+            发生历史性变革，为其他领域改革发展提供了重要物质条件。经济实力
+            再上新台阶，经济年均增长7.1%，成为世界经济增长的主要动力源和稳定器。
+        </p>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        /***
+         * 1 es6 flat
+         * newArray = arr.flat([depth])
+         ***/
+        let ary1 = [1, [2, [3, [4, 5]]], 6]; // -> [1, 2, 3, 4, 5, 6]
+        ary1 = ary1.flat(Infinity);
+        console.log(ary1);
+        /**
+         * 2. replace + split
+         * */
+        let ary2 = [1, [2, [3, [4, 5]]], 6];
+        let str2 = JSON.stringify(ary2)
+        ary2 = str2.replace(/(\[|\])/g, '').split(',')
+        console.log(ary2);
+
+        /**
+         * 3. replace + JSON.parse
+         * **/
+        let ary3 = [1, [2, [3, [4, 5]]], 6];
+        let str3 = JSON.stringify(ary2)
+        str3 = str3.replace(/(\[|\])/g, '');
+        str3 = '[' + str3 + ']';
+        ary3 = JSON.parse(str3);
+        console.log(ary3);
+
+        /**
+         * 4. 普通递归
+         * **/
+        let result = [];
+        let fn = function (ary) {
+            for (let i = 0; i < ary.length; i++) {
+                let item = ary[i];
+                if (Array.isArray(ary[i])) {
+                    fn(item);
+                } else {
+                    result.push(item);
+                }
+            }
+        }
+        let ary4 = [1, [2, [3, [4, 5]]], 6];
+        fn(ary4)
+        console.log(result);
+
+        /***
+         * 5. 利用reduce函数迭代
+         * **/
+        let ary5 = [1, [2, [3, [4, 5]]], 6];
+
+        function flatten(ary) {
+            return ary.reduce((pre, cur) => {
+                return pre.concat(Array.isArray(cur) ? flatten(cur) : cur);
+            }, []);
+        }
+        console.log(flatten(ary5))
+
+        /**
+         * 6：扩展运算符
+         */
+        let ary6 = [1, [2, [3, [4, 5]]], 6];
+        while (ary6.some(Array.isArray)) {
+            ary6 = [].concat(...ary6);
+        }
+        console.log(ary6);
+
+        let arr7 = [1, 2, [3, 4, [5, {
+                a: 1
+            },
+            [6]
+        ]]];
+        let str7 = JSON.stringify(arr7).replace(/\[|\]/g, "");
+        str7 = "[" + str7 + "]";
+        console.log(JSON.parse(str7));
+
+        let result7 = []
+
+        function flat(arr) {
+            for (let i = 0; i < arr.length; i++) {
+                let item = arr[i];
+                if (Array.isArray(arr[i])) {
+                    flat(item);
+                } else {
+                    result7.push(item);
+                }
+            }
+        }
+       
+        flat([1, 2, [3, 4, [5, {
+                a: 1
+            },
+            [6]
+        ]]])
+        console.log(result7);
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

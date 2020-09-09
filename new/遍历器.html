@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let arr = ["a", "b", "c"];
+        let iter = arr[Symbol.iterator]();
+
+        console.log(iter.next());
+        console.log(iter.next());
+        console.log(iter.next());
+        console.log(iter.next());
+        console.log(iter.next());
+
+        let map = new Map();
+        map.set("a", 1)
+        map.set("a", 2)
+        map.set("b", 3)
+
+        console.log(map);
+
+        const obj = {
+            toString() {
+                return 'abc';
+            }
+        };
+        const sym = Symbol(obj);
+        console.log(sym);
+         // Symbol(abc)
+         let mySymbol = Symbol();
+         let a = {};
+        // a[mySymbol] = 'Hello!';
+     
+        // a.mySymbol = 'Hello!';
+        // a[mySymbol] // undefined
+        // a['mySymbol'] // "Hello!"
+
+        console.log(a[mySymbol]);
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

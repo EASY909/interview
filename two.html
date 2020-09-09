@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>双飞翼布局</title>
+    <script>
+        // console.log("B页面开始请求接口")
+
+        // setTimeout(function(){            
+
+        //     window.name="我是B页面保存的数据"
+
+        //     location.href="http://127.0.0.1:5500/swordoffer/%E9%9D%A2%E8%AF%95%E9%A2%98/cup.html"
+        // },2000)    
+        function repeat(func, times, wait) {
+            async function fn(...args){
+                for (let i = 0; i < times; i++) {
+                    await new Promise((resolve)=>{
+                        setTimeout(()=>{
+                            resolve(func(...args));
+                        },wait)
+                    })
+                    
+                }
+            }
+            return fn
+            // return function (...args) {
+            //     let count = 0;
+            //     let timer = setInterval(() => {
+            //         count++;
+                    
+            //         if (count > times-1) {
+            //             clearInterval(timer);
+            //         }
+            //         func(...args);
+            //         console.log(count);
+                    
+            //     }, wait)
+
+
+            // }
+        }
+        const repeatFunc = repeat(alert, 4, 3000);
+        // repeatFunc("hellworld");
+      
+    </script>
+    <style>
+        /* #center {
+            float: left;
+            width: 100%;
+            height: 100px;
+            background: blue;
+        }
+
+        #left {
+            float: left;
+            width: 180px;
+            height: 100px;
+            margin-left: -100%;
+            background: #0c9;
+        }
+
+        #right {
+            float: left;
+            width: 200px;
+            height: 100px;
+            margin-left: -200px;
+            background: #0c9;
+        }
+
+
+        #inside {
+            margin: 0 200px 0 180px;
+            height: 100px;
+        } */
+        #center,
+        #left,
+        #right {
+            float: left;
+            height: 200px;
+        }
+
+        #left {
+            width: 200px;
+            margin-left: -100%;
+            background-color: aquamarine;
+        }
+
+        #right {
+            width: 200px;
+            margin-left: -200px;
+            background-color: aquamarine;
+        }
+
+        #inside {
+            margin: 0 200px;
+            background-color: bisque;
+            height: 100%;
+        }
+
+        #center {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="center">
+        <div id="inside">middle</div>
+    </div>
+    <div id="left">left</div>
+    <div id="right">right</div>
+</body>
+
+</html>

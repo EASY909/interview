@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        /**
+         * new被调用后做了三件事情:
+            让实例可以访问到私有属性
+            让实例可以访问构造函数原型(constructor.prototype)所在原型链上的属性
+            如果构造函数返回的结果不是引用数据类型
+         * 
+         * **/
+        function newOperator(ctor, ...args) {
+            if (typeof ctor !== 'function') {
+                throw 'newOperator function the first param must be a function';
+            }
+            let obj = Object.create(ctor.prototype);
+            let res = ctor.apply(obj, args);
+
+            let isObject = typeof res === 'object' && res !== null;
+            let isFunction = typeof res === 'function';
+            return isObject || isFunction ? res : obj;
+        };
+
+
+
+        //     // let obj=new Father();
+        //     console.log(typeof obj);
+        //    let a= Object.create(Father.prototype);
+        //    console.log(a.prototype===obj.prototype);
+
+        function myNew(ctor, ...args) {
+            if (typeof ctor !== 'function') {
+                throw 'newOperator function the first param must be a function';
+            }
+            let obj = Object.create(ctor.prototype);
+            let res = ctor.apply(obj, args);
+
+            let isObject = typeof res === 'object' && res !== null;
+            let isFunction = typeof res === "function";
+
+            return (isObject || isFunction) ? res : obj;
+        }
+
+        function Father1(age) {
+            this.age = age;
+        }
+        let a = myNew(Father1, 18);
+        console.log(a);
+        // newOperator()
+        function Father2(age) {
+            this.age = age;
+            return null
+        }
+
+        let b = myNew(Father2, 18);
+        console.log(b);
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

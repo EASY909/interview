@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        const obj = {
+            a: 1
+        };
+        const obj2 = Object.create(obj);
+        Object.defineProperty(obj2, "b", {
+            value: 2
+        })
+        obj2.c = 3;
+        console.log(obj2);
+        console.log(Object.keys(obj2))
+        console.log(Reflect.ownKeys(obj2))
+        console.log(Object.getOwnPropertyNames(obj2))
+
+        
+        let triangle = {
+            a: 1,
+            b: 2,
+            c: 3
+        }
+
+
+        function coloTriangle() {
+            this.color = 'red';
+        }
+
+
+        coloTriangle.prototype = triangle;
+        let color = new coloTriangle();
+        Object.defineProperty(color, 'auto', {
+            value: 'auto'
+        })
+        let symbolProp = Symbol('symbol');
+        color[symbolProp] = 'symbol'
+        Reflect.ownKeys: Object.getOwnPropertyNames(target).concat(Object.getOwnPropertySymbols) *
+            /**没有来自继承的， 都是own *
+            不管枚举不枚举都能遍历 *
+            还可以拿到symbol类型属性 *
+            **/
+            Reflect.ownKeys(color) //["color","auto",Symbol(symbol)]
+
+        /**
+         * Object.getOwnPropertyNames
+         * 没有来自继承，都是own
+         * 不管枚举不枚举都能遍历
+         * 拿不到symbol类型属性
+         */
+        Object.getOwnPropertyNames(color); //["color","auto"]
+
+
+        /**
+         * Object.getOwnPropertySymbols
+         * 只能own
+         * 也不管枚举不枚举
+         * 只能拿到Symbol类型属性
+         */
+        Object.getOwnPropertySymbols(color); //[Symbol(symbol)]
+
+        /**
+         * Object.keys就有点矫情了
+         * 只能是own
+         * and 要枚举才行
+         * 拿不到Symbol类型属性
+         *
+         */
+        Object.keys(color); //["color"]
+
+
+        /**
+         * for in 就是也是取其一把
+         * 不需要own,可以来自继承属性
+         * 但是一定会要枚举
+         * 拿不到Symbol类型属性
+         */
+        for (let i in color) {
+            console.log(i); //color a b c
+        }
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
