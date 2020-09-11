@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #draggable {
+            width: 200px;
+            height: 20px;
+            text-align: center;
+            background: white;
+        }
+
+        .dropzone {
+            width: 200px;
+            height: 20px;
+            background: blueviolet;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dropzone">
+        <div id="draggable" draggable="true">
+            <!-- This div is draggable -->
+        </div>
+    </div>
+    <div class="dropzone"></div>
+    <div class="dropzone"></div>
+    <div class="dropzone"></div>
+    <script>
+        let dragged;
+        document.addEventListener("dragstart", (e) => {
+            dragged = e.target;
+        })
+        document.addEventListener("dragover", (e) => {
+            e.preventDefault();
+        })
+        document.addEventListener("drop", (e) => {
+            e.preventDefault();
+            dragged.parentNode.removeChild(dragged);
+            event.target.appendChild(dragged);
+        })
+    </script>
+</body>
+
+</html>

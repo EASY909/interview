@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let ary1 = [1, [2, [3, [4, 5]]], 6];
+        ary1 = ary1.flat(Infinity);
+        console.log(ary1);
+
+        let ary2 = [1, [2, [3, [4, 5]]], 6];
+        let str2 = JSON.stringify(ary2);
+        ary2 = str2.replace(/\[|\]/g, "").split(",");
+        console.log(ary2);
+
+        let ary3 = [1, [2, [3, [4, 5]]], 6];
+        let result = [];
+
+
+        // console.log(arr._flat(3));
+
+        function fn(ary, dep) {
+            if (Array.isArray(ary)) {
+
+                for (let i = 0; i < dep; i++) {
+                    ary = [].concat(...ary);
+                };
+                return ary;
+            }
+            return ary;
+        }
+        console.log(fn(ary3,1));
+        
+        let ary6 = [1, [2, [3, [4, 5]]], 6];
+        while (ary6.some(Array.isArray)) {
+            ary6 = [].concat(...ary6);
+        }
+        console.log(ary6);
+        // console.log(result);
+    </script>
+</body>
+
+</html>

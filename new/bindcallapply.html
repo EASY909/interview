@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        Function.prototype.mybind = function (context, ...args) {
+            if(typeof this !=="function"){
+                throw new Error("Function.prototype.bind - what is trying to be bound is not callable");
+            }
+            let self=this;
+            let found=function(){
+                self.apply(this instanceof self?this:context,args.concat(...arguments));
+            }
+            found.prototype=Object.create(self.prototype);
+            return found;
+        }
+        Function.prototype.myCall = function (context) {
+            if (typeof this !== 'function') {
+                throw new TypeError('Error')
+            }
+            context = context || window;
+
+            context.fn = this;
+            const args = [...arguments].slice(1)
+            const result = context.fn(...args)
+            delete context.fn
+            return result;
+        }
+        Function.prototype.myApply = function (context) {
+            if (typeof this !== 'function') {
+                throw new TypeError('Error')
+            }
+
+            context = context || window;
+            context.fn = this;
+            let result;
+            if (arguments[1]) {
+                result = context.fn(...arguments[1]);
+            } else {
+                result = context.fn();
+            }
+            delete context.fn
+            return result
+        }
+    </script>
+</body>
+
+</html>

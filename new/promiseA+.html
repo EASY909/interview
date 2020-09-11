@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function myPromise(callback) {
+            let that = this;
+            that.status = "pending";
+            that.value = "undefined";
+            that.reason = "undefined";
+            that.onFullfilledArray = [];
+            that.onRejectedArray = [];
+
+            function resolve(value) {
+                if (that.status === "pending") {
+                    that.value = value;
+                    that.status = "resolved";
+                    that.onFullfilledArray.forEach(fun => {
+                        fun(that.value);
+                    })
+                }
+            }
+
+            function reject(reason) {
+                if (that.status === "pending") {
+                    that.reason = reason;
+                    that.status = "rejected";
+                    that.onRejectedArray.forEach((func) => {
+                        func(that.reason);
+                    })
+                }
+            }
+            try {
+                callback(resolve, reject);
+            } catch (e) {
+                reject(e);
+            }
+        }
+        myPromise.prototype.then = function (onFulfilled, onRejected) {
+            let that = this;
+            if (that.status === "pending") {
+                that.onFullfilledArray.push((value) => {
+                    onFulfilled(value);
+                })
+                that.onRejectedArray.push((reason) => {
+                    onRejected(reason);
+                })
+            }
+            if (that.status === "resolved") {
+                onFulfilled(that.value);
+            }
+
+            if (that.status === "rejected") {
+                onRejected(that.reason);
+            }
+        }
+
+
+        let p = new myPromise((resovle, reject) => {
+            setTimeout(() => {
+                resovle(1);
+            },2000)
+        })
+        p.then((res) => {
+            console.log(res);
+        },error=>{
+            console.log(error);
+        })
+    </script>
+</body>
+
+</html>

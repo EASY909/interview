@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,body{
+            margin:0;
+            padding:0;
+        }
+        #center,#left,#right{
+            height: 200px;
+            float: left;
+        }
+        #left{
+            height: 200px;
+            width: 200px;
+            background-color: rebeccapurple;
+            margin-left:-100%;
+        }
+        #right{
+            height: 200px;
+            width: 200px;
+            background-color: rebeccapurple;
+            margin-left:-200px;
+        }
+        #center{
+            width: 100%;  
+        }
+        #inside{
+            margin:0 200px;
+            height: 100%;
+            background-color: aqua;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="center">
+        <div id="inside">inside</div>
+    </div>
+    <div id="left">left</div>
+    <div id="right">right</div>
+</body>
+
+</html>

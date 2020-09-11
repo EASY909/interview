@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box1 {
+            width: 200px;
+            height: 200px;
+            background-color: rebeccapurple;
+        }
+
+        #box2 {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box1">
+        <div id="box2">
+            content
+        </div>
+    </div>
+    <script>
+        box1.addEventListener("click", () => {
+            console.log("box1 true");
+        }, true)
+        box1.addEventListener("click", () => {
+            console.log("box1 false");
+        }, false)
+        box2.addEventListener("click", () => {
+            console.log("box2 true");
+        }, true)
+        box2.addEventListener("click", () => {
+            console.log("box2 false");
+        }, false)
+    </script>
+    <script>
+        function map(arr, mapCallback) {
+            if (!Array.isArray(arr) || !arr.length || typeof mapCallback !== 'function') {
+                return [];
+            } else {
+                let res = [];
+                for (let i = 0; i < arr.length; i++) {
+                    res.push(mapCallback(arr[i], i, arr));
+
+                }
+                return res;
+            }
+        }
+
+        function reduce(arr, reduceCallback, initialValue) {
+            // 首先，检查传递的参数是否正确。
+            if (!Array.isArray(arr) || !arr.length || typeof reduceCallback !== 'function') {
+                return [];
+            } else {
+                // 如果没有将initialValue传递给该函数，我们将使用第一个数组项作为initialValue
+                let hasInitialValue = initialValue !== undefined;
+                let value = hasInitialValue ? initialValue : arr[0];
+                for (let i = hasInitialValue ? 0 : 1, len = arr.length; i < len; i++) {
+                    value = reduceCallback(value, arr[i], i, arr);
+                }
+                return value;
+            }
+        }
+        let arr=[1,2,3,4];
+        function _map(arr,cb){
+            
+        }
+       let a= arr.reduce((pre,item)=>{
+            return 11
+        })
+        console.log(a);
+    </script>
+</body>
+
+</html>

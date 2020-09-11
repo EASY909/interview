@@ -49,6 +49,7 @@
         let div = document.getElementById("div1");
         console.log(window.getComputedStyle(div, null));
         console.log(document.defaultView.getComputedStyle(div, null).getPropertyValue("background-color"));
+        console.log(window.getComputedStyle(div, null).getPropertyValue("background-color"));
         console.log(window.getComputedStyle(div, null)["background"]);
         console.log(document.styleSheets);
 
