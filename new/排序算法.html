@@ -12,20 +12,191 @@
         function bubbleSort(arr) {
             let len = arr.length;
             for (let i = 0; i < len - 1; i++) {
-
-
-                
+                let flag = 0;
                 for (let j = 0; j < len - 1 - i; j++) {
                     if (arr[j] > arr[j + 1]) {
                         let temp = arr[j + 1];
                         arr[j + 1] = arr[j];
                         arr[j] = temp;
+                        flag = 1;
                     }
+                }
+                if (flag === 0) break;
+            }
+            return arr;
+        }
+
+        function selectionSort(arr) {
+            let len = arr.length,
+                minIndex, temp;
+            for (let i = 0; i < len - 1; i++) {
+                minIndex = i;
+                for (let j = i + 1; j < len; j++) {
+                    if (arr[j] < arr[minIndex]) {
+                        minIndex = j;
+                    }
+                }
+                temp = arr[i];
+                arr[i] = arr[minIndex];
+                arr[minIndex] = temp;
+            }
+            return arr;
+        }
+
+
+        function insertionSort(arr) {
+            let len = arr.length,
+                preindex, cur;
+            for (let i = 0; i < len; i++) {
+                preindex = i - 1;
+                cur = arr[i];
+                while (arr[preindex] > cur && preindex >= 0) {
+                    arr[preindex + 1] = arr[preindex];
+                    preindex--;
+                }
+                arr[preindex + 1] = cur;
+            }
+            return arr;
+        }
+
+
+
+        function shellSort(arr) {
+            let len = arr.length,
+                current,
+                preIndex,
+                gap = 1;
+
+            while (gap < len / 3) {
+                gap = gap * 3 + 1;
+            }
+            for (; gap > 0; gap = Math.floor(gap / 3)) {
+                for (let i = gap; i < len; i++) {
+                    preIndex = i - gap;
+                    current = arr[i];
+                    while (preIndex >= 0 && arr[preIndex] > current) {
+                        arr[preIndex + gap] = arr[preIndex];
+                        preIndex -= gap;
+                    }
+                    arr[preIndex + gap] = current;
                 }
             }
             return arr;
         }
-        console.log(bubbleSort([3, 2, 1, 4, 5, 6]));
+
+
+        function mergeSort(arr) {
+            let len = arr.length;
+            if (len < 2) {
+                return arr;
+            }
+
+            let middle = Math.floor(len / 2),
+                left = arr.slice(0, middle),
+                right = arr.slice(middle);
+            return merge(mergeSort(left), mergeSort(right));
+        }
+
+        function merge(left, right) {
+            let result = [],
+                i = 0,
+                j = 0;
+            while (i < left.length && j < right.length) {
+                if (left[i] <= right[j]) {
+                    result.push(left[i]);
+                    i++;
+                } else {
+                    result.push(right[j]);
+                    j++;
+                }
+            }
+
+            if (i < left.length) {
+                result.push(...left.slice(i));
+            }
+
+            if (j < right.length) {
+                result.push(...right.slice(j));
+            }
+
+            return result;
+        }
+
+
+        function quickSort(arr, left, right) {
+            if (left > right) return;
+
+            let base = arr[left],
+                i = left,
+                j = right;
+
+            while (i !== j) {
+                while (arr[j] >= base && i < j) {
+                    j--;
+                }
+                while (arr[i] <= base && i < j) {
+                    i++;
+                }
+
+                let temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+
+            arr[left] = arr[i];
+            arr[i] = base;
+            quickSort(arr, left, i - 1);
+            quickSort(arr, i + 1, right);
+
+            return arr;
+        }
+
+        function buildMaxHeap(arr) {
+            let last = arr.length - 1;
+            let parent = Math.floor((last - 1) / 2);
+            for (let i = parent; i >= 0; i--) {
+                heapify(arr, i, arr.length);
+            }
+        }
+
+        function heapify(arr, i, len) {
+            if (i >= len) return;
+            let left = 2 * i + 1,
+                right = 2 * i + 2,
+                largest = i;
+
+            if (left < len && arr[largest] < arr[left]) {
+                largest = left;
+            }
+
+            if (right < len && arr[largest] < arr[right]) {
+                largest = right;
+            }
+
+            if (largest !== i) {
+                swap(arr, i, largest);
+                heapify(arr, largest, len);
+            }
+        }
+
+        function swap(arr, i, j) {
+            var temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+
+        function heapSort(arr) {
+            buildMaxHeap(arr);
+
+            for (var i = arr.length - 1; i > 0; i--) {
+                swap(arr, 0, i);
+
+                heapify(arr, 0, i);
+            }
+            return arr;
+        }
+
+        console.log(heapSort([3, 2, 1, 4, 5, 6]));
     </script>
 </body>
 
