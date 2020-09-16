@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //JS实现大数相加
+        function add(a, b) {
+            let i = a.length - 1,
+                j = b.length - 1,
+                res = "",
+                cur = 0;
+            while (i >= 0 || j >= 0) {
+                let num1 = i >= 0 ? (+a[i]) : 0;
+                num2 = j >= 0 ? (+b[j]) : 0;
+                let count = num1 + num2 + cur;
+                res = count % 10 + res;
+                cur = Math.floor(count / 10);
+                i--;
+                j--;
+            }
+            if (cur === 1) res = cur + res;
+            return res
+        }
+        console.log(add('5234', '9239'));
+    </script>
+</body>
+
+</html>
